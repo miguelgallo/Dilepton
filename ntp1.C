@@ -58,6 +58,8 @@ void ntp1::Loop()
 
    Long64_t nentries = fChain->GetEntriesFast();
 
+	int contador_xangle = 0;
+
    Long64_t nbytes = 0, nb = 0;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
       Long64_t ientry = LoadTree(jentry);
@@ -73,6 +75,7 @@ void ntp1::Loop()
 
 		TLorentzVector v;
 
+		//if(CrossingAngle==150) contador_xangle++;
 		if(MuonCand_pt[0] > 50 && MuonCand_pt[1] > 50){
 			if(MuonCand_charge[0] * MuonCand_charge[1] < 0){
 				if(MuonCand_istight[0] && MuonCand_istight[1]){
@@ -111,12 +114,12 @@ void ntp1::Loop()
 		}	
 	}
 
-	TFile* f = new TFile("2018/out_data_runD2018.root", "RECREATE");
-   mumu_mass->DrawCopy();
-   mumu_pt->DrawCopy();
-   mumu_y->DrawCopy();
-   xi_left->DrawCopy();
-   xi_right->DrawCopy();
+	TFile* f = new TFile("2017/out_data_runF2017.root", "RECREATE");
+   //mumu_mass->DrawCopy();
+   //mumu_pt->DrawCopy();
+   //mumu_y->DrawCopy();
+   //xi_left->DrawCopy();
+   //xi_right->DrawCopy();
    mumu_mass->Write();
    mumu_pt->Write();
    mumu_y->Write();

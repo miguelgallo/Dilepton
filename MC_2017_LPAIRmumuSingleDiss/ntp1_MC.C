@@ -47,6 +47,7 @@ void ntp1_MC::Loop()
 //by  b_branchname->GetEntry(ientry); //read only this branch
 
 	TH1D *mumu_mass = new TH1D("mumu_mass", "#mu^{+}#mu^{-} Mass", 100, 0, 1000);
+	TH1D *cut_flow = new TH1D("cut_flow", "h", 2, 0, 2);
 	TH1D *mumu_pt = new TH1D("mumu_pt", "#mu^{+}#mu^{-} p_{T}", 100, 0, 200);
 	TH1D *mumu_y = new TH1D("mumu_y", "#mu^{+}#mu^{-} y", 100, -3, 3);
 	TH2D *xi_left = new TH2D("xi_left", "#xi Left Correlation", 100, 0, 0.5, 100, 0, 0.5); 
@@ -57,14 +58,14 @@ void ntp1_MC::Loop()
    if (fChain == 0) return;
 
    Long64_t nentries = fChain->GetEntriesFast();
-
+	cout << "running on: " << nentries << endl;
    Long64_t nbytes = 0, nb = 0;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
       Long64_t ientry = LoadTree(jentry);
       if (ientry < 0) break;
       nb = fChain->GetEntry(jentry);   nbytes += nb;
       // if (Cut(ientry) < 0) continue;
-  
+		cut_flow->Fill(0);
 		double a = 1 - fabs(Pair_dphi[0])/PI;
 		double xi_pair_left = (1./13000) * ( MuonCand_pt[0]*exp( MuonCand_eta[0] ) + MuonCand_pt[1]*exp( MuonCand_eta[1] ) );
       double xi_pair_right = (1./13000) * ( MuonCand_pt[0]*exp( -MuonCand_eta[0] ) + MuonCand_pt[1]*exp( -MuonCand_eta[1] ) );
@@ -80,7 +81,7 @@ void ntp1_MC::Loop()
               		if(fabs(KalmanVertexCand_z[0] < 15.)){
                   	if(ClosestExtraTrack_vtxdxyz[0] > 0.05){
 								if(a < 0.009){
-					
+									cut_flow->Fill(1);
 									//cout << *ProtCand_arm << endl;
 									
 									v.SetPtEtaPhiM(Pair_pt[0],Pair_eta[0],Pair_phi[0],Pair_mass[0]);		
@@ -112,16 +113,17 @@ void ntp1_MC::Loop()
 	}
 
 	TFile* f = new TFile("out_MC_Pt50_xangle130.root", "RECREATE");
-   mumu_mass->DrawCopy();
-   mumu_pt->DrawCopy();
-   mumu_y->DrawCopy();
-   xi_left->DrawCopy();
-   xi_right->DrawCopy();
+   //mumu_mass->DrawCopy();
+   //mumu_pt->DrawCopy();
+   //mumu_y->DrawCopy();
+   //xi_left->DrawCopy();
+   //xi_right->DrawCopy();
    mumu_mass->Write();
    mumu_pt->Write();
    mumu_y->Write();
    xi_left->Write();
    xi_right->Write();
+	cut_flow->Write();
 	
 	f->Close();
 }

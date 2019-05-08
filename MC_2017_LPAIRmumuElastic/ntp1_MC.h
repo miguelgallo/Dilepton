@@ -265,11 +265,11 @@ ntp1_MC::ntp1_MC(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/eos/cms/store/group/phys_pps/ProtonRecoValidation/Dileptons/2017/ProtonReconstruction_LPAIRmumuElastic_Summer17_Pt50_xangle150_divergence30.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/eos/cms/store/group/phys_pps/ProtonRecoValidation/Dileptons/2017/ProtonReconstruction_LPAIRmumuElastic_Summer17_Pt50_xangle130.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("/eos/cms/store/group/phys_pps/ProtonRecoValidation/Dileptons/2017/ProtonReconstruction_LPAIRmumuElastic_Summer17_Pt50_xangle150_divergence30.root");
+         f = new TFile("/eos/cms/store/group/phys_pps/ProtonRecoValidation/Dileptons/2017/ProtonReconstruction_LPAIRmumuElastic_Summer17_Pt50_xangle130.root");
       }
-      TDirectory * dir = (TDirectory*)f->Get("/eos/cms/store/group/phys_pps/ProtonRecoValidation/Dileptons/2017/ProtonReconstruction_LPAIRmumuElastic_Summer17_Pt50_xangle150_divergence30.root:/ggll_aod");
+      TDirectory * dir = (TDirectory*)f->Get("/eos/cms/store/group/phys_pps/ProtonRecoValidation/Dileptons/2017/ProtonReconstruction_LPAIRmumuElastic_Summer17_Pt50_xangle130.root:/ggll_aod");
       dir->GetObject("ntp1",tree);
 
    }

@@ -227,11 +227,11 @@ ntp1::ntp1(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/eos/cms/store/group/phys_pps/ProtonRecoValidation/Dileptons/2018/ProtonReconstruction_DoubleMu2018D_merge.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/eos/cms/store/group/phys_pps/ProtonRecoValidation/Dileptons/2017/ProtonReconstruction_DoubleMu2017F_merge.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("/eos/cms/store/group/phys_pps/ProtonRecoValidation/Dileptons/2018/ProtonReconstruction_DoubleMu2018D_merge.root");
+         f = new TFile("/eos/cms/store/group/phys_pps/ProtonRecoValidation/Dileptons/2017/ProtonReconstruction_DoubleMu2017F_merge.root");
       }
-      TDirectory * dir = (TDirectory*)f->Get("/eos/cms/store/group/phys_pps/ProtonRecoValidation/Dileptons/2018/ProtonReconstruction_DoubleMu2018D_merge.root:/ggll_aod");
+      TDirectory * dir = (TDirectory*)f->Get("/eos/cms/store/group/phys_pps/ProtonRecoValidation/Dileptons/2017/ProtonReconstruction_DoubleMu2017F_merge.root:/ggll_aod");
       dir->GetObject("ntp1",tree);
 
    }
